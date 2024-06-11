@@ -1,0 +1,6 @@
+venv
+*.csv
+*.pyc
+data
+*.csv
+*.vscode

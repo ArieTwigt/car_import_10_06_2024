@@ -1,12 +1,25 @@
-from utils.calculation_functions import calc_pythagoras, calc_circle
+from utils.import_functions import import_cars_by_brand
+from utils.conversion_functions import convert_list_to_df
+from utils.export_functions import export_df_to_csv
+from tqdm import tqdm
 
+# get the brand from the input
+selected_brands = input("Insert the brand:\n")
 
-# call the function
-result = calc_pythagoras(10, 20)
+# split the string to a list
+selected_brand_list = selected_brands.split(" ")
 
-print(result)
+# iterate over the brands list
+for selected_brand in tqdm(selected_brand_list):
+    try:
+        # use the brand for the function
+        cars_list = import_cars_by_brand(selected_brand)
 
-result_2, result_3 = calc_circle("10")
-print(result_2)
+        # convert the list to a DataFrame
+        cars_df = convert_list_to_df(cars_list)
 
-pass
+        # export the pandas DataFrame to a csv
+        export_df_to_csv(cars_df, selected_brand)
+    except ValueError:
+        print(f"Error for {selected_brand}")
+
